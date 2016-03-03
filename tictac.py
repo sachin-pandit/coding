@@ -419,7 +419,7 @@ def MIN_VALUE (temp_cur_board, cur_depth, parent_index):
         traverse_file.write ("%s,%d,%d\n" % (print_next_move_i (parent_index), (cutoff_depth - (cur_depth)), min_value))
     return min_value
 
-def minimax():
+def mini_max():
     max_value = -sys.maxint - 1
     temp = 0
     list = []
@@ -432,14 +432,14 @@ def minimax():
     if (len(list) == 0):
         return
     update_traverse_file ()
-    #print ("In MINIMAX")
+    #print ("In MINI_max")
     #print ("Node,Depth,Value")
     traverse_file.write ("Node,Depth,Value\n")
     #print ("root,0,-Infinity")
     traverse_file.write ("root,0,-Infinity\n")
     for index in list:
         temp_cur_board = [row[:] for row in cur_board]
-        update_board (temp_cur_board, index, "minimax", player1, player2)
+        update_board (temp_cur_board, index, "mini_max", player1, player2)
         #print_board_matrix (temp_cur_board)
         temp = MIN_VALUE (temp_cur_board, cur_depth - 1, index)
         #print ("%s,1,%d" % (print_next_move_i (index), (temp)))
@@ -570,7 +570,7 @@ def ALPHA_BETA():
     traverse_file.write ("root,0,-Infinity,-Infinity,Infinity\n")
     for index in list:
         temp_cur_board = [row[:] for row in cur_board]
-        update_board (temp_cur_board, index, "minimax", player1, player2)
+        update_board (temp_cur_board, index, "mini_max", player1, player2)
         #print_board_matrix (temp_cur_board)
         temp = ALPHA_MIN_VALUE (temp_cur_board, cur_depth - 1, index, alpha, beta)
         if (temp > max_value):
@@ -618,8 +618,8 @@ def call_algo(algo):
         #print ("Best first called")
         best_first()
     elif (algo == 2):
-        #print ("Minimax called")
-        minimax()
+        #print ("Mini_max called")
+        mini_max()
     elif (algo == 3):
         #print ("Alpha Beta called")
         ALPHA_BETA()
@@ -651,7 +651,7 @@ def main():
         best_first()
     elif (task_number_temp == 2):
         process_the_file (sys.argv[2])
-        minimax()
+        mini_max()
     elif (task_number_temp == 3):
         process_the_file (sys.argv[2])
         ALPHA_BETA()
